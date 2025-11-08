@@ -6,7 +6,7 @@
 
 | **Version** | **Date** | **Author** | **Description** |
 |--------------|-----------|-------------|----------------|
-| 1.0 | 7th Nov 2025 | Akshita Mishra | Initial Functional Documentation and Bussiness use cases |
+| 1.0 | 7th Nov 2025 | Akshita Mishra | Initial Functional and Bussiness use cases |
 
 ## **Authors, Mentors & Reviewers**
 
