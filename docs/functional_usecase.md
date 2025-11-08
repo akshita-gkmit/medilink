@@ -52,7 +52,7 @@ flowchart TD
     E --> F{"Validation Passed?"}
     F -->|Yes| G["Save Slots in Database"]
     F -->|No| H["Return Error Message"]
-    G --> I["Show Success Notification to Doctor"]
+    G --> I["Show Success message to Doctor"]
 ```
 
 ### **Validation Rules:**
