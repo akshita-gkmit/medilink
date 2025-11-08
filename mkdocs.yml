@@ -1,0 +1,18 @@
+site_name: MediLink
+
+theme:
+  name: material
+  logo: images/logo.jpeg
+  palette:
+    - scheme: default
+      primary: green
+      accent: deep orange
+
+nav:
+  - Overview: index.md
+  - Functional Documentation: function.md
+  - Bussiness Use Cases: usecases.md
+
+plugins:
+  - search
+  - mermaid2
