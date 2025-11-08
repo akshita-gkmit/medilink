@@ -12,9 +12,8 @@ It replaces manual appointment handling with an automated and transparent workfl
 
 | Role | Business Objective | Description | Value to Business |
 |-------|--------------------|--------------|-------------------|
-| Admin | Manage system setup | Handles doctor registration, patient data, and database maintenance | Ensures smooth operations |
+| Admin | Manage system setup | Handles doctor registration and database maintenance | Ensures smooth operations |
 | Doctor | Manage clinic appointments | Creates slots, reviews requests, and manages appointments | Saves time and improves scheduling |
-| Doctor | Maintain patient records | Reviews patient visit history | Improves care quality |
 | Patient | Book and manage appointments | Registers, books, or cancels appointments online | Provides flexibility and convenience |
 
 ## **3. Admin Business Use Case**
@@ -45,7 +44,7 @@ The following table describes the possible failure scenarios during Admin operat
 |------------------|-------------------|----------------------------------|
 | **Database error (commit failed)** | Transaction is rolled back in FastAPI. | No partial data is saved; Admin sees an error message like *“Database update failed.”* |
 | **Validation error (invalid data)** | Backend validation logic rejects input. | Admin is prompted: *“Please enter valid details.”* |
-| **Network or server issue** | Request fails safely; frontend retries or shows an alert. | Admin sees a message: *“Unable to connect to server. Try again later.”* |
+| **Network or server issue** | Request fails safely, frontend retries or shows an alert. | Admin sees a message: *“Unable to connect to server. Try again later.”* |
 | **Authentication issue** | Session expires; backend returns HTTP 401. | Admin is redirected to the login screen. |
 | **Unexpected exception** | FastAPI logs the error and returns a standardized response. | *“Something went wrong. Please contact the system administrator.”* |
 
@@ -69,10 +68,10 @@ The following table describes the possible failure scenarios during Admin operat
   New appointment requests appear on the doctor’s dashboard.
 
 - **Outcome:**  
-  - If **no priority task** exists at the requested time, the doctor approves the appointment.  
-  - If a **priority task** (e.g., emergency or meeting) exists, the doctor rejects the request, and the system automatically suggests alternative time slots to the patient.  
-  - All updates are reflected in the database, and the patient is notified.  
-  - In case of database or network failure, the transaction is rolled back and the doctor is alerted.
+   - If **no priority task** exists at the requested time, the doctor approves the appointment.  
+   - If a **priority task** (e.g., emergency or meeting) exists, the doctor rejects the request, and the system automatically suggests alternative time slots to the patient.  
+   - All updates are reflected in the database, and the patient is notified.  
+   - In case of database or network failure, the transaction is rolled back and the doctor is alerted.
 
 
 ```mermaid
@@ -121,11 +120,9 @@ The table below outlines possible failure points, the system’s response, and t
 |------------------|-------------------|----------------------------------|
 | **Invalid Slot Data** | Input validation fails at the backend before committing to the database. | Doctor sees an alert: *"Invalid time or date entered. Please recheck details."* |
 | **Database Commit Failure (while saving slots)** | FastAPI rolls back the transaction to prevent partial updates. | *"Failed to save slot. Please try again later."* |
-| **Priority Task Conflict** | The system detects a conflicting priority task and rejects the booking. | *"Request rejected due to another priority task. System will suggest an alternative slot."* |
 | **Duplicate Appointment Request** | Backend prevents booking or approval of the same slot twice. | *"Slot already booked. Please choose another time."* |
 | **Database Update Failure (during approval)** | Transaction rolled back automatically; changes not committed. | *"Unable to update appointment status. Please retry."* |
-| **Network or Server Failure** | Frontend retries request; backend logs error. | *"Network issue detected. Please check your connection or try again later."* |
-| **Authentication Timeout** | Session expires while performing actions. | *"Session expired. Please log in again."* |
+| **Network or Server Failure** | Frontend retries request, backend logs error. | *"Network issue detected. Please check your connection or try again later."* |
 | **Unexpected Exception** | FastAPI logs the error for admin review and sends a generic error message. | *"Something went wrong. Please contact the administrator."* |
 
 ## **5. Patient Business Use Case**
@@ -153,16 +150,8 @@ flowchart TD
     D --> E["System Saves Request with Status = Pending"]
     E --> F["Doctor Reviews Request Later"]
 
-    F --> O{"Appointment Accepted?"}
-    O -->|Yes| P["Status Updated = Approved"]
-    O -->|No| Q["System Suggests Alternative Slots to Patient"]
-
-    P --> R["Patient Notified: Appointment Confirmed"]
-    Q --> S["Patient Notified: Suggested New Slots"]
-    R --> T["Patient Opens Appointment List"]
-    S --> AC{"Suggestion Accepted?"}
-    AC -->|Yes| F
-    AC -->|No| AB["End Process"]
+    F --> T["Patient Opens Appointment List"]
+    
 
     T --> U["Select Appointment to Cancel"]
     U --> V["Click 'Cancel' Button"]
@@ -173,7 +162,7 @@ flowchart TD
     X --> Z["Slot Marked as Available Again"]
     
     Z --> AA["Updated Schedule Displayed to Patient and Doctor"]
-    AA --> AB
+    AA --> AB["End"]
 ```
 
 ### **Error Handling (Optional to Add)**

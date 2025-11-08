@@ -418,7 +418,7 @@ It replaces manual appointment handling with an automated and transparent workfl
 <tr>
 <td>Admin</td>
 <td>Manage system setup</td>
-<td>Handles doctor registration, patient data, and database maintenance</td>
+<td>Handles doctor registration and database maintenance</td>
 <td>Ensures smooth operations</td>
 </tr>
 <tr>
@@ -426,12 +426,6 @@ It replaces manual appointment handling with an automated and transparent workfl
 <td>Manage clinic appointments</td>
 <td>Creates slots, reviews requests, and manages appointments</td>
 <td>Saves time and improves scheduling</td>
-</tr>
-<tr>
-<td>Doctor</td>
-<td>Maintain patient records</td>
-<td>Reviews patient visit history</td>
-<td>Improves care quality</td>
 </tr>
 <tr>
 <td>Patient</td>
@@ -481,7 +475,7 @@ It replaces manual appointment handling with an automated and transparent workfl
 </tr>
 <tr>
 <td><strong>Network or server issue</strong></td>
-<td>Request fails safely; frontend retries or shows an alert.</td>
+<td>Request fails safely, frontend retries or shows an alert.</td>
 <td>Admin sees a message: <em>“Unable to connect to server. Try again later.”</em></td>
 </tr>
 <tr>
@@ -583,11 +577,6 @@ The table below outlines possible failure points, the system’s response, and t
 <td><em>"Failed to save slot. Please try again later."</em></td>
 </tr>
 <tr>
-<td><strong>Priority Task Conflict</strong></td>
-<td>The system detects a conflicting priority task and rejects the booking.</td>
-<td><em>"Request rejected due to another priority task. System will suggest an alternative slot."</em></td>
-</tr>
-<tr>
 <td><strong>Duplicate Appointment Request</strong></td>
 <td>Backend prevents booking or approval of the same slot twice.</td>
 <td><em>"Slot already booked. Please choose another time."</em></td>
@@ -599,13 +588,8 @@ The table below outlines possible failure points, the system’s response, and t
 </tr>
 <tr>
 <td><strong>Network or Server Failure</strong></td>
-<td>Frontend retries request; backend logs error.</td>
+<td>Frontend retries request, backend logs error.</td>
 <td><em>"Network issue detected. Please check your connection or try again later."</em></td>
-</tr>
-<tr>
-<td><strong>Authentication Timeout</strong></td>
-<td>Session expires while performing actions.</td>
-<td><em>"Session expired. Please log in again."</em></td>
 </tr>
 <tr>
 <td><strong>Unexpected Exception</strong></td>
@@ -646,16 +630,8 @@ The table below outlines possible failure points, the system’s response, and t
     D --&gt; E["System Saves Request with Status = Pending"]
     E --&gt; F["Doctor Reviews Request Later"]
 
-    F --&gt; O{"Appointment Accepted?"}
-    O --&gt;|Yes| P["Status Updated = Approved"]
-    O --&gt;|No| Q["System Suggests Alternative Slots to Patient"]
+    F --&gt; T["Patient Opens Appointment List"]
 
-    P --&gt; R["Patient Notified: Appointment Confirmed"]
-    Q --&gt; S["Patient Notified: Suggested New Slots"]
-    R --&gt; T["Patient Opens Appointment List"]
-    S --&gt; AC{"Suggestion Accepted?"}
-    AC --&gt;|Yes| F
-    AC --&gt;|No| AB["End Process"]
 
     T --&gt; U["Select Appointment to Cancel"]
     U --&gt; V["Click 'Cancel' Button"]
@@ -666,7 +642,7 @@ The table below outlines possible failure points, the system’s response, and t
     X --&gt; Z["Slot Marked as Available Again"]
 
     Z --&gt; AA["Updated Schedule Displayed to Patient and Doctor"]
-    AA --&gt; AB
+    AA --&gt; AB["End"]
 </div>
 <h3 id="error-handling-optional-to-add"><strong>Error Handling (Optional to Add)</strong></h3>
 <table>
