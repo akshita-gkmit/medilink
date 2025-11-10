@@ -432,6 +432,7 @@ It replaces manual appointment handling with an automated and transparent workfl
 <li>The system must automatically update appointment status upon approval, rejection, or cancellation.  </li>
 <li>All appointment and slot operations must be recorded in the activity logs for audit and consistency.  </li>
 <li>If a doctor has pre-scheduled appointments but leaves the hospital due to any issue, another available doctor will take over the appointments for that time slot, and the patient will be notified through the app. The patient will have the option to cancel the appointment if they do not wish to continue with the substitute doctor.  </li>
+<li>If a doctor rejects an appointment and the priority work gets cancelled, the system won’t reschedule the meeting, the slot will be marked as busy.</li>
 </ol>
 <h2 id="2-business-use-case-summary"><strong>2. Business Use Case Summary</strong></h2>
 <table>

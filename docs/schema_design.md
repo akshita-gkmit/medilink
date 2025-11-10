@@ -95,7 +95,7 @@ erDiagram
 		int doctor_id FK ""  
 		int patient_id FK ""  
 		text diagnosis  ""  
-		text prescription_img  ""  
+		text consultation_details  ""  
 		text doctor_notes(optional)  ""  
 		timestamp created_at  ""  
 		timestamp updated_at  ""  
