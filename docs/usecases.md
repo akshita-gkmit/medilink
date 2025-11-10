@@ -15,11 +15,10 @@ It replaces manual appointment handling with an automated and transparent workfl
 3. Only admins can create, modify or delete doctor records from the system.  
 4. A patient can book appointments only for time slots that are at least 1 hour ahead of the current time.  
 5. A doctor can cancel an approved appointment only up to 30 minutes before the scheduled time.  
-6. If a request remains unapproved within 30 minutes of the slot, the system automatically sends a suggestion message to the patient with alternative doctors and available slots.  
+6. If a request remains unapproved within 30 minutes of the slot, the system sends alert message *'Sorry, the doctor is busy with an emergency case. Please book another available time.'* to patient dashboard.  
 7. The system must automatically update appointment status upon approval, rejection, or cancellation.  
-8. All appointment and slot operations must be recorded in the activity logs for audit and consistency.  
-9. If a doctor has pre-scheduled appointments but leaves the hospital due to any issue, another available doctor will take over the appointments for that time slot, and the patient will be notified through the app. The patient will have the option to cancel the appointment if they do not wish to continue with the substitute doctor.  
-10. If a doctor rejects an appointment and the priority work gets cancelled, the system won’t reschedule the meeting, the slot will be marked as busy.
+8. If a doctor has pre-scheduled appointments but leaves the hospital due to any issue, another available doctor will take over the appointments for that time slot, and the patient will be notified through the app. The patient will have the option to cancel the appointment if they do not wish to continue with the substitute doctor.  
+9. If a doctor rejects an appointment and the priority work gets cancelled, the system won’t reschedule the meeting, the slot will be marked as busy.
  
 
 ## **2. Business Use Case Summary**
@@ -92,20 +91,17 @@ flowchart TD
     K --> L{"Any Priority Task at Requested Time?"}
 
     L -->|No| M["Approve Appointment"]
-    L -->|Yes| N["Reject Request and Trigger Slot Suggestion"]
+    L -->|Yes| N["Reject Request and send alert message *'Sorry, the doctor is busy with an emergency case. Please book another available time.'*"]
 
     M --> O{"Database Update Successful?"}
     O -->|Yes| P["Update Status = Approved"]
     O -->|No| Q["Rollback Transaction and Show Error Message"]
 
-    N --> R["System Suggests Next Available Slot to Patient"]
-
     P --> S["Notify Patient: Appointment Confirmed"]
-    R --> T["Notify Patient: Suggested New Slot"]
-    Q --> U["Log Error for Admin Review"]
+    N --> S
 
+    Q --> U["Log Error for Admin Review"]
     S --> V["Doctor Reviews Updated Schedule"]
-    T --> V
     U --> V
 
     V --> W["End Process"]

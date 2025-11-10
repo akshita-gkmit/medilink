@@ -36,7 +36,6 @@ flowchart TD
 |------------------|--------------------|------------------|
 | Invalid credentials | HTTP 401 returned | “Invalid username or password.” |
 | Token expired | Token refresh triggered | “Session expired. Please log in again.” |
-| Network failure | Frontend retry logic triggered | “Network issue. Try again later.” |
 
 ## **4. FUC-03 – Manage Appointment Slots (Doctor)**
 **Description**
@@ -45,19 +44,23 @@ Allows doctors to define their available consultation slots, which patients can 
 ```mermaid
 flowchart TD
     A["Doctor Logs In"] --> B["Access 'Manage Slots' Section"]
-    B --> C["Add / Edit / Delete Time Slots"]
-    C --> D["Frontend Sends API Request (POST /slots)"]
-    D --> E["FastAPI Validates Slot Data"]
-    E --> F{"Validation Passed?"}
-    F -->|Yes| G["Save Slots in Database"]
-    F -->|No| H["Return Error Message"]
-    G --> I["Show Success message to Doctor"]
+    B --> C["Select Date for Slot Management"]
+    C --> D["View Predefined 30-Minute Time Slots (Checkboxes)"]
+    D --> E["Tick / Untick Slots to Mark Availability"]
+    E --> F["Optionally Edit Slot Date or Availability (Not Time)"]
+    F --> G["Frontend Sends API Request (POST /slots)"]
+    G --> H["FastAPI Validates Slot Data (Check duplicates, date validity)"]
+    H --> I{"Validation Passed?"}
+    I -->|Yes| J["Save Slots / Updates in Database"]
+    I -->|No| K["Return Error Message (e.g., Duplicate Slot or Invalid Date)"]
+    J --> L["Show Success Message to Doctor"]
+
 ```
 
 ### **Validation Rules:**
 
-- No overlapping slots allowed.
-- Slot date/time must be valid (future).
+- No duplicate slots.
+- Slot date must be todat or future.
 - Slots linked to the logged-in doctor’s ID.
 
 ## **5. FUC-04 – Book Appointment (Patient)**
@@ -70,8 +73,8 @@ flowchart TD
     B --> C["Select Doctor & Available Slot"]
     C --> D["Click 'Book Appointment'"]
     D --> E["System Saves Request with Status = Pending and slot color = Yellow"]
-    E --> F["Doctor Receives Notification"]
-    F --> G["Patient Receives Confirmation Message"]
+    E --> F["Doctor Receives Request"]
+    F --> G["Patient Dashboard updates"]
 ```
 
 ### **Slot Visualization and Booking Behavior**
@@ -84,7 +87,8 @@ Each color represents a distinct slot status and dynamically changes based on us
 | ⚪ White | Available | Slot is open for booking and visible to all patients. |
 | 🟡 Yellow | Pending | Slot has been booked by a patient but is awaiting doctor approval. |
 | 🟢 Green | Confirmed | Appointment has been approved by the doctor. |
-| ⚫ Grey | Doctor Busy / Rejected | Slot becomes unavailable because the doctor rejected the request or marked themselves busy. |
+| ⚫ Grey | Doctor inactive / Rejected a request | Slot becomes unavailable because the doctor rejected the request or marked themselves busy. |
+
 
 **Behavioral Rules:**
 
@@ -93,8 +97,8 @@ Each color represents a distinct slot status and dynamically changes based on us
 3. If the doctor **approves** the appointment, the slot turns **Green (Confirmed)**.  
 4. If the doctor **rejects** the appointment, the slot turns **Grey (Busy)**.  
 5. If the **patient cancels** a booked appointment, the slot automatically reverts to **White (Available)** and becomes available to all patients again.  
-6. When a doctor marks themselves as **Busy**, all related slots appear **Grey (Busy)** and are temporarily disabled for booking.  
-7. If a slot remains **unapproved within 30 minutes of the scheduled time**, the system automatically suggests alternative available slots or doctors to the patient.
+6. When a doctor marks themselves as **Inactive**, all related slots appear **Grey (Busy)** and are temporarily disabled for booking.  
+7. If a slot remains **unapproved within 30 minutes of the scheduled time**, the system automatically send a alert message *"Sorry, the doctor is busy with an emergency case. Please book another available time." to the patient and reject the appointment, slot turns **Grey (Busy)**.
 
 This approach ensures clear communication of slot status, prevents double booking, and maintains transparency for both patients and doctors.
 
@@ -116,7 +120,7 @@ flowchart TD
     A["Doctor Opens Dashboard"] --> B["Views Pending Requests"]
     B --> C{"Any Conflicts or Priorities?"}
     C -->|No| D["Approve Appointment"]
-    C -->|Yes| E["Reject and Suggest New Slot"]
+    C -->|Yes| E["Reject and show alert message *'Sorry, the doctor is busy with an emergency case. Please book another available time.'* to patient dashboard"]
     D --> F["Update Status = Approved and Patient side slot color = Green"]
     E --> G["Update Status = Rejected and slot color = Grey (BUSY)"]
     F --> H["Update Patient"]
