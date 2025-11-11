@@ -9,21 +9,25 @@
       
       
       
+        <link rel="prev" href="../../schema_design/">
       
       
-      <link rel="icon" href="/assets/images/favicon.png">
+        <link rel="next" href="../Data_Flow/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
     
     
       
-        <title>MediLink</title>
+        <title>Architecture - MediLink</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.84d31ad4.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -42,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -67,6 +71,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#technical-part-of-medilink" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -79,9 +88,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="MediLink" class="md-header__button md-logo" aria-label="MediLink" data-md-component="logo">
+    <a href="../.." title="MediLink" class="md-header__button md-logo" aria-label="MediLink" data-md-component="logo">
       
-  <img src="/images/logo.jpeg" alt="logo">
+  <img src="../../images/logo.jpeg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -98,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Architecture
             
           </span>
         </div>
@@ -188,9 +197,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="MediLink" class="md-nav__button md-logo" aria-label="MediLink" data-md-component="logo">
+    <a href="../.." title="MediLink" class="md-nav__button md-logo" aria-label="MediLink" data-md-component="logo">
       
-  <img src="/images/logo.jpeg" alt="logo">
+  <img src="../../images/logo.jpeg" alt="logo">
 
     </a>
     MediLink
@@ -205,7 +214,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -227,7 +236,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/introduction/" class="md-nav__link">
+      <a href="../../introduction/" class="md-nav__link">
         
   
   
@@ -249,7 +258,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/functional_usecase/" class="md-nav__link">
+      <a href="../../functional_usecase/" class="md-nav__link">
         
   
   
@@ -271,7 +280,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/usecases/" class="md-nav__link">
+      <a href="../../usecases/" class="md-nav__link">
         
   
   
@@ -293,7 +302,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/schema_design/" class="md-nav__link">
+      <a href="../../schema_design/" class="md-nav__link">
         
   
   
@@ -312,18 +321,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
@@ -339,7 +350,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             Technical Design
@@ -350,10 +361,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/technical/schema/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -364,6 +397,35 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-diagram-aws-specific" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture diagram (AWS specific)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -376,7 +438,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/technical/Data_Flow/" class="md-nav__link">
+      <a href="../Data_Flow/" class="md-nav__link">
         
   
   
@@ -399,7 +461,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/technical/Technical_Stack/" class="md-nav__link">
+      <a href="../Technical_Stack/" class="md-nav__link">
         
   
   
@@ -422,7 +484,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/technical/Access/" class="md-nav__link">
+      <a href="../Access/" class="md-nav__link">
         
   
   
@@ -445,7 +507,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/technical/doctor_slot/" class="md-nav__link">
+      <a href="../doctor_slot/" class="md-nav__link">
         
   
   
@@ -468,7 +530,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/technical/appointment_booking/" class="md-nav__link">
+      <a href="../appointment_booking/" class="md-nav__link">
         
   
   
@@ -508,6 +570,25 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-diagram-aws-specific" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture diagram (AWS specific)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -519,8 +600,34 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+
+<h1 id="technical-part-of-medilink">Technical Part of MediLink</h1>
+<h2 id="architecture-diagram-aws-specific">Architecture diagram (AWS specific)</h2>
+<p>The AWS architecture of <strong>MediLink</strong> demonstrates how the platform is securely deployed and managed within the AWS cloud ecosystem.  </p>
+<p>When a <strong>Patient or Doctor</strong> accesses the MediLink frontend, their HTTP requests are routed through the AWS infrastructure, hosted within a <strong>Virtual Private Cloud (VPC)</strong> for isolation and security.  </p>
+<ul>
+<li><strong>Amazon EC2 (Elastic Compute Cloud):</strong> Hosts the MediLink backend (FastAPI application) and serves incoming HTTP requests from users.  </li>
+<li><strong>Amazon RDS (Relational Database Service):</strong> Stores all MediLink data, including user accounts, doctor details, appointment records, and slot information, ensuring reliability and automatic backups.  </li>
+<li><strong>Amazon CloudWatch:</strong> Monitors system performance, logs API activity, and provides real-time insights into server health and database metrics.  </li>
+</ul>
+<p>This architecture ensures <strong>scalability, security, and continuous monitoring</strong>, enabling MediLink to deliver a reliable healthcare service experience for both patients and doctors.</p>
+<p><img alt="Architecture diagram" src="../../images/aws.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -556,10 +663,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "/", "features": [], "search": "/assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="/assets/javascripts/bundle.f55a23d4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
     
   </body>
