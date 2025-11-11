@@ -68,18 +68,6 @@ flowchart TD
 - **Approval Process:** Doctor reviews and approves or rejects the request.
 - **Admin Monitoring:** Admin oversees system activity and ensures smooth operation.
 
-# Technologies Used
-
-| Category | Technologies |
-|-----------|--------------|
-| Frontend | HTML5, CSS3, JavaScript, Bootstrap |
-| Backend | Python (FastAPI) |
-| Database | PostgreSQL |
-| Database Tool | DBeaver |
-| Authentication | JWT |
-| Version Control | Git, GitHub |
-| Documentation | MkDocs Material |
-
 ## Features
 
 | **Functionality** | **Description** |
