@@ -34,28 +34,28 @@ sequenceDiagram
 
   Note over Doctor,Backend: Doctor reviews and acts
   Doctor->>UI: Click Approve / Reject
-  UI->>Backend: POST /appointments/{id}/action {action: "approve"|"reject"}
+  UI->>Backend: PATCH /appointments/{id}/action {action: "approve"|"reject"}
   alt Approve
     Backend->>DB: UPDATE appointment.status="Approved"
     Backend->>DB: UPDATE slot.status="Confirmed" (color=Green)
-    Backend-->>UI: 200 {message: "Approved"}
+    Backend-->>UI: 200 {message: "Approved successfully"}
     UI-->>Doctor: Show success
   else Reject
     Backend->>DB: UPDATE appointment.status="Rejected"
     Backend->>DB: UPDATE slot.status="Busy" (color=Grey)
-    Backend-->>UI: 200 {message: "Rejected"}
-    UI-->>Doctor: Show "Doctor busy" message
+    Backend-->>UI: 200 {message: "Rejected successfully"}
+    UI-->>Doctor: Show "Doctor unavailable" message
   end
 
   Note over Backend,DB: When pending slot passes time threshold
   UI->>Backend: GET /appointments/{patient_id} (on dashboard refresh)
-  Backend->>DB: SELECT appointment WHERE status="Pending" AND slot_time < now()
+  Backend->>DB: SELECT appointment WHERE status="Pending"
   alt expired pending found
     Backend->>DB: UPDATE appointment.status="Rejected"
     Backend->>DB: UPDATE slot.status="Busy" (color=Grey)
     DB-->>Backend: OK
-    Backend-->>UI: 200 {message:"Doctor busy, please book another slot"}
-    UI-->>Patient: Show message: "Doctor busy, please book another slot"
+    Backend-->>UI: 200 {message:"Doctor unavailable, please book another slot"}
+    UI-->>Patient: Show message: "Doctor unavailable, please book another slot"
 
   end
 ```

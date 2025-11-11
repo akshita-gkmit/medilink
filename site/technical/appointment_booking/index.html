@@ -257,28 +257,28 @@
 
   Note over Doctor,Backend: Doctor reviews and acts
   Doctor-&gt;&gt;UI: Click Approve / Reject
-  UI-&gt;&gt;Backend: POST /appointments/{id}/action {action: "approve"|"reject"}
+  UI-&gt;&gt;Backend: PATCH /appointments/{id}/action {action: "approve"|"reject"}
   alt Approve
     Backend-&gt;&gt;DB: UPDATE appointment.status="Approved"
     Backend-&gt;&gt;DB: UPDATE slot.status="Confirmed" (color=Green)
-    Backend--&gt;&gt;UI: 200 {message: "Approved"}
+    Backend--&gt;&gt;UI: 200 {message: "Approved successfully"}
     UI--&gt;&gt;Doctor: Show success
   else Reject
     Backend-&gt;&gt;DB: UPDATE appointment.status="Rejected"
     Backend-&gt;&gt;DB: UPDATE slot.status="Busy" (color=Grey)
-    Backend--&gt;&gt;UI: 200 {message: "Rejected"}
-    UI--&gt;&gt;Doctor: Show "Doctor busy" message
+    Backend--&gt;&gt;UI: 200 {message: "Rejected successfully"}
+    UI--&gt;&gt;Doctor: Show "Doctor unavailable" message
   end
 
   Note over Backend,DB: When pending slot passes time threshold
   UI-&gt;&gt;Backend: GET /appointments/{patient_id} (on dashboard refresh)
-  Backend-&gt;&gt;DB: SELECT appointment WHERE status="Pending" AND slot_time &lt; now()
+  Backend-&gt;&gt;DB: SELECT appointment WHERE status="Pending"
   alt expired pending found
     Backend-&gt;&gt;DB: UPDATE appointment.status="Rejected"
     Backend-&gt;&gt;DB: UPDATE slot.status="Busy" (color=Grey)
     DB--&gt;&gt;Backend: OK
-    Backend--&gt;&gt;UI: 200 {message:"Doctor busy, please book another slot"}
-    UI--&gt;&gt;Patient: Show message: "Doctor busy, please book another slot"
+    Backend--&gt;&gt;UI: 200 {message:"Doctor unavailable, please book another slot"}
+    UI--&gt;&gt;Patient: Show message: "Doctor unavailable, please book another slot"
 
   end
 </div>
