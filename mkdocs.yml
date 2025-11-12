@@ -19,6 +19,7 @@ nav:
       - Data Flow Diagram: technical/Data_Flow.md
       - Technical Stack: technical/Technical_Stack.md
       - Authentication and Authorization: technical/Access.md
+      - Test Plan: technical/test.md
       - Doctor Slot Management: technical/doctor_slot.md
       - Appointment Booking: technical/appointment_booking.md
       
