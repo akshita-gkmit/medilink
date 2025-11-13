@@ -72,7 +72,7 @@ Components to be tested:
 
 * **Language:** Python
 * **Framework:** FastAPI
-* **Database:** Postgresql test DB for integration
+* **Database:** SQLite test DB for integration
 * **Tools:**
 
   * pytest
